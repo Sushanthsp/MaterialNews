@@ -120,7 +120,7 @@ export default function Navbar(props) {
           <NewspaperIcon />
           <Typography sx={{ marginLeft: ".5rem" }}>Material news</Typography>
           {isMatch ? (
-            <>
+            <> 
               <Drawercomp pages={pages} />
               <SwitchRoot
                 onChange={props.switch}
