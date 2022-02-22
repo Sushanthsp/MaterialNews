@@ -133,7 +133,7 @@ export default function Navbar(props) {
               </SwitchRoot>
             </>
           ) : (
-            <>
+            <> 
               <Tabs
                 textColor="inherit"
                 sx={{ margin: "auto" }}
