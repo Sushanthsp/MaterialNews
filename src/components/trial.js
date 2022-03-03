@@ -10,35 +10,33 @@ const News = (props) => {
   const articles = [];
   const [news, setNews] = useState(articles);
   const [page, setPage] = useState(0);
-  const [firstLoading, setFirstLoading] = useState(false)
   const [loading, setLoading] = useState(false);
   const [totalResults, setTotalResults] = useState(0);
-  
+
   const process = async () => {
-    props.progress(0)
-    setFirstLoading(true);
-    props.progress(20)
-    let url = `https://newsapi.org/v2/top-headlines?country=${
-      props.country
-    }&page=${page + 1}&category=${props.category}&pageSize=${
-      props.pageSize
-      }&apiKey=${props.api}`;
-      props.progress(30)
-    let data = await fetch(url);
-    props.progress(40)
+      setLoading(true);
+      let url = `https://bing-news-search1.p.rapidapi.com/news?safeSearch=Off&textFormat=Raw&${
+        props.country
+      }&page=${page + 1}&pageSize=${
+        props.pageSize
+      }`
+      let data = fetch(url , {
+	"method": "GET",
+	"headers": {
+		"x-bingapis-sdk": "true",
+		"x-rapidapi-host": "bing-news-search1.p.rapidapi.com",
+		"x-rapidapi-key": "ae1fffb0bdmsh84d2716b8b4a600p14a600jsna4c001b322af"
+	}
+})
     let fetchData = await data.json();
-    props.progress(50)
-    setNews(fetchData.articles);
+    setNews(fetchData.value);
     setTotalResults(fetchData.totalResults);
-    props.progress(60)
     setPage(page + 1);
-    props.progress(75)
-    setFirstLoading(false);
-    props.progress(100)
+    setLoading(false);
   };
 
   const fetchMoreData = async () => {
-     setLoading(true);
+    setLoading(true);
     let url = `https://newsapi.org/v2/top-headlines?country=${
       props.country
     }&page=${page + 1}&category=${props.category}&pageSize=${
@@ -48,9 +46,8 @@ const News = (props) => {
     let fetchData = await data.json();
     setNews(news.concat(fetchData.articles));
     setPage(page + 1);
-    
-    setTotalResults(fetchData.totalResults);
     setLoading(false);
+    setTotalResults(fetchData.totalResults);
   };
 
   useEffect(() => {
@@ -59,11 +56,11 @@ const News = (props) => {
 
   return (
     <>
-       <Container >
-        {!firstLoading && <Typography component="div" variant="h4" textAlign={"center"}>
+      <Container>
+        <Typography component="div" variant="h4" textAlign={"center"}>
           Top Headlines of the day - {props.category}
-        </Typography>}
-        {firstLoading && <Circular/>}
+        </Typography>
+        {loading && <Circular />}
         <InfiniteScroll
           dataLength={news.length}
           next={fetchMoreData}
@@ -72,14 +69,15 @@ const News = (props) => {
         >
           <Grid container spacing={3}>
             {news.map((art) => (
-              <MediaCard theme={props.theme}
+              <MediaCard
+                key={art.id}
                 sourceName={art.source.name ? art.source.name : "Unknown"}
                 sourcelogo={
                   art.urlToImage
                     ? art.urlToImage
                     : "https://img.etimg.com/thumb/msid-89389648,width-1070,height-580,imgsize-45296,overlay-economictimes/photo.jpg"
                 }
-                key={art.url}
+                key={art.key}
                 alt=""
                 img={
                   art.urlToImage
@@ -95,7 +93,7 @@ const News = (props) => {
             ))}
           </Grid>
         </InfiniteScroll>
-        </Container>
+      </Container>
     </>
   );
 };

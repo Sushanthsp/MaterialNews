@@ -5,119 +5,157 @@ import { ThemeProvider } from "@mui/material/styles";
 import { createTheme } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LoadingBar from "react-top-loading-bar";
+
 
 function App() {
-  const api= '481a241fbe774b7ea0907143e20dce23'
-  const country = 'in'
-  const pageSize=9
+  
+  const api = "9ef5c724ef654e3c81144e452d33ba75";
+  const country = "in";
+  const pageSize = 9;
   const [mode, setMode] = useState(false);
+  const [progress, setProgress] = useState(0);
+
   const theme = createTheme({
     palette: {
       mode: mode ? "dark" : "light",
     },
+    
   });
 
   const changeMode = () => {
     setMode(!mode);
   };
 
+  const setProg = (p) => {
+    setProgress(p);
+  };
+
   return (
     <div>
-       <Router>
-      <ThemeProvider theme={theme}>
-        <Paper style={{ height: "1"}}>
-          <Navbar switch={changeMode} />
-          
+      <Router>
+      <LoadingBar
+          color="#f11946"
+          progress={progress}
+          height={3}
+          onLoaderFinished={() => setProg(0)}
+        />
+        <ThemeProvider theme={theme}>
+          <Paper sx={{ "min-height"	: '100vh' }} >
+           
+            
+            <Navbar switch={changeMode} />
+
             <Routes>
-            <Route
-            exact
+              <Route
+                exact
                 path="/"
-            element={
-              <News
-                category="general"
-                country={country}
-                api={api}
-                pageSize={pageSize} 
+                element={
+                  <News
+                  theme={theme}
+                    progress={setProg}
+                    category="general"
+                    country={country}
+                    api={api}
+                    pageSize={pageSize}
+                    key="general"
+                  />
+                }
               />
-            }
-              />
-          <Route
-            exact
+              <Route
+                exact
                 path="/general"
-            element={
-              <News
-                category="general"
-                country={country}
-                api={api}
-                pageSize={pageSize} 
-              />
-            }
-              />
-              <Route
-            exact
-            path="/business"
-            element={
-              <News
-                category="business"
-                country={country}
-                api={api}
-                pageSize={pageSize} 
-              />
-            }
+                element={
+                  <News
+                  theme={theme}
+                  progress={setProg}
+                    category="general"
+                    country={country}
+                    api={api}
+                    pageSize={pageSize}
+                    key="general"
+                  />
+                }
               />
               <Route
-            exact
-            path="/science"
-            element={
-              <News
-                category="science"
-                country={country}
-                api={api}
-                pageSize={pageSize} 
-              /> 
-            }
+                exact
+                path="/business"
+                element={
+                  <News
+                  theme={theme}
+                  progress={setProg}
+                    category="business"
+                    country={country}
+                    api={api}
+                    pageSize={pageSize}
+                    key="business"
+                  />
+                }
               />
               <Route
-            exact
-            path="/health"
-            element={
-              <News
-                category="health"
-                country={country}
-                api={api}
-                pageSize={pageSize} 
-              /> 
-            }
+                exact
+                path="/science"
+                element={
+                  <News
+                  theme={theme}
+                  progress={setProg}
+                    category="science"
+                    country={country}
+                    api={api}
+                    pageSize={pageSize}
+                    key="science"
+                  />
+                }
               />
               <Route
-            exact
-            path="/technology"
-            element={
-              <News
-                category="technology"
-                country={country}
-                api={api}
-                pageSize={pageSize} 
-              /> 
-            }
+                exact
+                path="/health"
+                element={
+                  <News
+                  theme={theme}
+                  progress={setProg}
+                    category="health"
+                    country={country}
+                    api={api}
+                    pageSize={pageSize}
+                    key="health"
+                  />
+                }
               />
-               <Route
-            exact
-            path="/business"
-            element={
-              <News
-                category="business"
-                country={country}
-                api={api}
-                pageSize={pageSize} 
-              /> 
-            }
+              <Route
+                exact
+                path="/technology"
+                element={
+                  <News
+                  theme={theme}
+                  progress={setProg}
+                    category="technology"
+                    country={country}
+                    api={api}
+                    pageSize={pageSize}
+                    key="technology"
+                  />
+                }
               />
-              
-          </Routes>
-        </Paper>
+              <Route
+                exact
+                path="/business"
+                element={
+                  <News
+                  theme={theme}
+                  progress={setProg}
+                    category="business"
+                    country={country}
+                    api={api}
+                    pageSize={pageSize}
+                    key="business"
+                  />
+                }
+              />
+            </Routes>
+          </Paper>
         </ThemeProvider>
-        </Router>
+      </Router>
     </div>
   );
 }

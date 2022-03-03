@@ -50,10 +50,10 @@ const SwitchThumb = styled("span")`
   background-color: ${blue[700]};
   width: 30px;
   height: 30px;
-  border-radius: 8px;
+  border-radius: 7px;
   top: 3px;
   left: 4px;
-  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 1000ms cubic-bezier(0.4, 0, 0.2, 1);
 
   &::before {
     display: block;
@@ -71,7 +71,7 @@ const SwitchThumb = styled("span")`
   }
 
   &.checked {
-    transform: translateX(24px);
+    transform: translateX(0px);
 
     &::before {
       background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
@@ -84,8 +84,8 @@ const SwitchThumb = styled("span")`
 const SwitchTrack = styled("span")(
   ({ theme }) => `
   background-color: ${theme.palette.mode === "dark" ? grey[800] : grey[400]};
-  border-radius: 4px;
-  width: 100%;
+  border-radius: 11px;
+  width: 0%;
   height: 100%;
   display: block;
 `
