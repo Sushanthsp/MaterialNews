@@ -70,7 +70,7 @@ const News = (props) => {
           hasMore={news.length !== totalResults}
           loader={loading && <Circular />}
         >
-          <Grid container spacing={3}>
+          <Grid container spacing={3} sx={{"display" : "flex" , "justifyContent" : "center"}}>
             {news.map((art) => (
               <MediaCard theme={props.theme}
                 sourceName={art.source.name ? art.source.name : "Unknown"}

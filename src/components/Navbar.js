@@ -147,7 +147,7 @@ export default function Navbar(props) {
                 ))} 
               </Tabs>
               
-              <SwitchRoot
+                <SwitchRoot 
                 onChange={props.switch}
                 className={clsx(stateClasses)}
               >

@@ -16,13 +16,13 @@ const Drawercomp = (props) => {
         <List>
           {props.pages.map((page, index) => (
             <ListItemButton component={Link} to={page.link} key={index}>
-              <ListItemIcon >{page.category}</ListItemIcon>
+              <ListItemIcon>{page.category}</ListItemIcon>
             </ListItemButton>
           ))}
         </List>
       </Drawer>
       <IconButton
-        sx={{ marginLeft: "auto", color: "#FFF" }}
+        sx={{ margin: "auto", color: "#FFF" }}
         onClick={() => setOpenDrawer(!openDrawer)}
       >
         <MenuBookIcon sx={{ fontSize: "2.8rem" }} />
